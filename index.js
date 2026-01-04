@@ -55,7 +55,7 @@ const transporter = nodemailer.createTransport({
 });
 
 app.post('/api/send-order', async (req, res) => {
-    const { cart, total, mashPotatoCount, userPhone, location } = req.body;
+    const { cart, total, mashPotatoCount, userPhone, location, address } = req.body;
 
     // Use a hardcoded/admin email to receive the order since the user didn't provide one
     // In production, this might be process.env.ADMIN_EMAIL
@@ -90,8 +90,9 @@ app.post('/api/send-order', async (req, res) => {
             <div style="background-color: #f0f4f8; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
                 <h3 style="margin: 0 0 10px 0; color: #0B2545;">Customer Details</h3>
                 <p style="margin: 5px 0;"><strong>Phone:</strong> <a href="tel:${userPhone}" style="color: #0B2545; font-size: 18px; font-weight: bold;">${userPhone}</a></p>
-                <p style="margin: 5px 0;"><strong>Location:</strong> ${location ? `Lat: ${location.lat}, Lng: ${location.lng}` : 'Verified via GPS'}</p>
-                <p style="margin: 5px 0; font-size: 12px; color: #666;">Distance verified within 5km of Sonwar.</p>
+                <p style="margin: 5px 0;"><strong>Address:</strong> ${address || 'Not provided'}</p>
+                <p style="margin: 5px 0;"><strong>Coordinates:</strong> ${location ? `Lat: ${location.lat}, Lng: ${location.lng}` : 'Verified via GPS'}</p>
+                <p style="margin: 5px 0; font-size: 12px; color: #666;">Distance verified within 10km of Sonwar.</p>
             </div>
             
             <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
