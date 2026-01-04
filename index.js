@@ -135,7 +135,16 @@ app.post('/api/send-order', async (req, res) => {
         console.error('Email sending failed. Full error:', error.message);
         console.error('Error code:', error.code);
         console.error('Error response:', error.response);
-        res.status(500).json({ success: false, message: 'Failed to notify admin. Please call support.' });
+        // Return error details in response for debugging
+        res.status(500).json({
+            success: false,
+            message: 'Failed to notify admin. Please call support.',
+            debug: {
+                errorMessage: error.message,
+                errorCode: error.code,
+                errorResponse: error.response
+            }
+        });
     }
 });
 
