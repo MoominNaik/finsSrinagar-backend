@@ -12,7 +12,10 @@ app.use((req, res, next) => {
     const allowedOrigins = [
         'https://finssrinagar.vercel.app',
         'https://finssrinagar-git-main-abdulmoominnaiks-projects.vercel.app',
-        'http://localhost:5173'
+        'http://localhost:5173',
+        'https://fins-srinagar-backend.vercel.app',
+        'https://fins-srinagar-backend-git-main-abdulmoominnaiks-projects.vercel.app',
+        'https://fins-srinagar-backend-fx3ce3tjp-abdulmoominnaiks-projects.vercel.app'
     ];
 
     const origin = req.headers.origin;
