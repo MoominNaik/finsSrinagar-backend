@@ -117,6 +117,12 @@ app.post('/api/send-order', async (req, res) => {
     `;
 
     try {
+        // Check if env vars are set
+        if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+            console.error('MISSING ENV VARS: EMAIL_USER or EMAIL_PASS not set');
+            return res.status(500).json({ success: false, message: 'Server configuration error. Please contact support.' });
+        }
+
         await transporter.sendMail({
             from: `"Fins Ordering System" <${process.env.EMAIL_USER}>`,
             to: adminEmail, // Sending TO the business
@@ -126,7 +132,9 @@ app.post('/api/send-order', async (req, res) => {
         console.log('Order email sent to admin about user:', userPhone);
         res.json({ success: true, message: 'Order placed successfully!' });
     } catch (error) {
-        console.error('Email sending failed:', error);
+        console.error('Email sending failed. Full error:', error.message);
+        console.error('Error code:', error.code);
+        console.error('Error response:', error.response);
         res.status(500).json({ success: false, message: 'Failed to notify admin. Please call support.' });
     }
 });
