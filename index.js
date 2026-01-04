@@ -9,12 +9,22 @@ const PORT = process.env.PORT || 5000;
 
 // Manual CORS Middleware - MUST be first
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    const allowedOrigins = [
+        'https://finssrinagar.vercel.app',
+        'https://finssrinagar-git-main-abdulmoominnaiks-projects.vercel.app',
+        'http://localhost:5173'
+    ];
+
+    const origin = req.headers.origin;
+
+    if (allowedOrigins.includes(origin) || (origin && origin.includes('vercel.app'))) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+    }
+
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type,authorization');
     res.setHeader('Access-Control-Allow-Credentials', 'true');
 
-    // Intercept OPTIONS method
     if (req.method === 'OPTIONS') {
         return res.sendStatus(200);
     }
