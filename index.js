@@ -11,6 +11,8 @@ const PORT = process.env.PORT || 5000;
 app.use((req, res, next) => {
     const allowedOrigins = [
         'https://finssrinagar.vercel.app',
+        'https://finssrinagar.com',
+        'https://www.finssrinagar.com',
         'https://finssrinagar-git-main-abdulmoominnaiks-projects.vercel.app',
         'http://localhost:5173',
         'https://fins-srinagar-backend.vercel.app',
